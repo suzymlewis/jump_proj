@@ -96,14 +96,14 @@ for i = 2:iters % LOOP THRO?UGH TO UPDATE TIME CONSTANT FOR EACH 30ms TIMESTEP I
     for ii = 1:N_e % LOOP THROUGH EXCITATORY UNITS
         % MEMBRANE UPDATE
         V_e(ii, i) = (-V_e(ii, i-1) + V_rest + h(i) + n_e(i) + ...
-            (W_ee*r_e(:,i-1) + W_ei*r_i(:,i-1)))* T_i;
+            (W_ee*r_e(:,i-1) + W_ei*r_i(:,i-1)))/ T_i;
         % NONLINEAR FIRING RATE FUNTION
         r_e(ii, i) =  k*max(floor(V_e(:, 1)-V_0), 0).^n;
     end
     for iii = 1:N_i % LOOP THROUGH INHIBITORY UNITS
         % MEMBRANE UPDATE
         V_i(iii, i) = (-V_i(iii, i-1) + V_rest + h(i) + n_i(i) + ...
-            (W_ii*r_e(:,i-1) + W_ie*r_i(:,i-1)))* T_i;
+            (W_ii*r_e(:,i-1) + W_ie*r_i(:,i-1)))/ T_i;
         % NONLINEAR FIRING RATE FUNTION
         r_i(iii, i) = k*max(floor(V_i(:, 1)-V_0), 0).^n;
     end
